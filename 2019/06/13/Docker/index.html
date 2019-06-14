@@ -17,17 +17,8 @@
 <meta property="og:description" content="在网上看过许多教程，有了一些无聊得想法想要尝试^ ^ 试错篇。  运用阿里云  使用dockerfile构建nginx、php、mysql镜像  运用docker-compose快速部署LNMP环境">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560417096805.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560418173261.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560420437261.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560430455006.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560430667057.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560432629109.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560432862455.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560433052513.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560433437349.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560480108248.png">
-<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/Docker%5C1560480124106.png">
-<meta property="og:updated_time" content="2019-06-14T03:40:46.534Z">
+<meta property="og:image" content="https://github.com/pxh2133/pxh2133.github/2019%5C06%5C13%5CDocker%5C1560418173261.png">
+<meta property="og:updated_time" content="2019-06-14T03:51:21.572Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker部署LNMP环境">
 <meta name="twitter:description" content="在网上看过许多教程，有了一些无聊得想法想要尝试^ ^ 试错篇。  运用阿里云  使用dockerfile构建nginx、php、mysql镜像  运用docker-compose快速部署LNMP环境">
@@ -212,88 +203,190 @@
 <p><img src="/pxh2133/pxh2133.github/Docker%5C1560417096805.png" alt="1560417096805"></p>
 </li>
 <li><p><strong>创建nginx、php、mysql对应的镜像仓库</strong></p>
-<p><img src="/pxh2133/pxh2133.github/Docker%5C1560418173261.png" alt="1560418173261"></p>
+<p><img src="/pxh2133/pxh2133.github/2019%5C06%5C13%5CDocker%5C1560418173261.png" alt="1560418173261"></p>
+<h3 id="编写dockerfile"><a href="#编写dockerfile" class="headerlink" title="编写dockerfile"></a>编写dockerfile</h3><p>无聊的想法！dockerfile中用yum安装服务。</p>
+<p>运用编译安装可自定义文件路径、加入自己想要的模块与自定义的模块等，更佳。</p>
 </li>
 </ol>
-<h3 id="编写dockerfile"><a href="#编写dockerfile" class="headerlink" title="编写dockerfile"></a>编写dockerfile</h3><p>   无聊的想法！dockerfile中用yum安装服务。</p>
-<p>   运用编译安装可自定义文件路径、加入自己想要的模块与自定义的模块等，更佳。</p>
 <h4 id="nginx-dockerfile"><a href="#nginx-dockerfile" class="headerlink" title="nginx dockerfile"></a>nginx dockerfile</h4><p>   <strong>使用centos镜像</strong></p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   FROM centos</span><br><span class="line">   </span><br><span class="line">   RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">   RUN yum clean all</span><br><span class="line">   RUN yum repolist</span><br><span class="line">   RUN yum -y install wget vim</span><br><span class="line">   RUN wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br><span class="line">   RUN yum -y install nginx</span><br><span class="line">   ADD runnginx.sh /runnginx.sh</span><br><span class="line">   RUN chmod +x /runnginx.sh</span><br><span class="line">ENTRYPOINT [&quot;sh /runnginx.sh&quot;]	#这里用/usr/sbin/nginx就没问题</span><br><span class="line">   </span><br><span class="line">EXPOSE 80 443</span><br></pre></td></tr></table></figure>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">RUN yum clean all</span><br><span class="line">RUN yum repolist</span><br><span class="line">RUN yum -y install wget vim</span><br><span class="line">RUN wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br><span class="line">RUN yum -y install nginx</span><br><span class="line">ADD runnginx.sh /runnginx.sh</span><br><span class="line">RUN chmod +x /runnginx.sh</span><br><span class="line">ENTRYPOINT [&quot;sh /runnginx.sh&quot;]	#这里用/usr/sbin/nginx就没问题</span><br></pre></td></tr></table></figure>
 
-<p>   <strong>runnginx.sh</strong></p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">systemctl start nginx	#/usr/sbin/nginx</span><br></pre></td></tr></table></figure>
+<p>EXPOSE 80 443<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**runnginx.sh**</span><br></pre></td></tr></table></figure></p>
+<p>   #!/bin/bash</p>
+<p>   systemctl start nginx    #/usr/sbin/nginx<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### PHP dockerfile</span><br><span class="line"></span><br><span class="line">**使用centos镜像**</span><br></pre></td></tr></table></figure></p>
+<p>   FROM centos</p>
+<p>   ENV SRC_DIR /opt/php<br>   ENV PHP_DIR /etc/init.d<br>   ENV BUILD_TOOLS gcc automake autoconf libtool make gcc gcc-c++ glibc<br>   ENV BUILD_DEPS libmcrypt-devel mhash-devel libxslt-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel<br>   ENV BUILD_PHP php70w-common php70w-fpm php70w-opcache php70w-gd php70w-mysqlnd php70w-mbstring php70w-pecl-redis php70w-pecl-memcached php70w-devel php70w-xml</p>
+<p>   WORKDIR ${SRC_DIR}</p>
+<p>   RUN curl -o /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-7.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-7.repo</a><br>   RUN yum clean all<br>   RUN yum repolist<br>RUN yum -y install wget vim<br>   RUN wget -O /etc/yum.repos.d/epel.repo <a href="http://mirrors.aliyun.com/repo/epel-7.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/epel-7.repo</a><br>RUN yum -y update<br>   RUN yum -y install epel-release<br>   RUN rpm -Uvh <a href="https://mirror.webtatic.com/yum/el7/webtatic-release.rpm" target="_blank" rel="noopener">https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</a><br>   RUN yum -y install ${BUILD_TOOLS} ${BUILD_DEPS}<br>   RUN yum -y install ${BUILD_PHP}<br>   WORKDIR ${PHP_DIR}<br>   ENTRYPOINT [“systemctl start php-fpm”] #注意 注意 注意 （使用/usr/sbin/php-fpm就好了)</p>
+<p>   EXPOSE 9000<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### Mysql dockerfile</span><br><span class="line"></span><br><span class="line">**使用的是mysql镜像**</span><br></pre></td></tr></table></figure></p>
+<p>FROM mysql<br>COPY my.cnf /etc/mysql/my.cnf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 构建镜像</span><br><span class="line"></span><br><span class="line">+ **上传基础镜像centos、mysql至镜像仓库**</span><br><span class="line"></span><br><span class="line">+ **推送你的文件上云（git push）**</span><br><span class="line"></span><br><span class="line">+ **进入镜像仓库，添加规则**</span><br><span class="line"></span><br><span class="line">  ![1560420437261](Docker\1560420437261.png)</span><br><span class="line"></span><br><span class="line">+ **进行构建**</span><br><span class="line"></span><br><span class="line">  期间可能构建失败，你可以从日志中查看错误地方，修改dockerfile，重新上传并构建。</span><br><span class="line"></span><br><span class="line">  这是个能让你熟悉dockerfile编写的好机会。</span><br><span class="line"></span><br><span class="line">### 启动环境</span><br><span class="line"></span><br><span class="line">为了方便统一管理nginx,php,mysql的启动，我们使用docker-compose工具。我们只需要编写一个docker-compose.yml文件，然后使用docker-compose工具就可以快速启动docker容器了。之后把docker-compose.yml传输到任意一台支持docker环境的主机中就可以快速配置wordpress的运行环境。</span><br><span class="line"></span><br><span class="line">#### docker-compose.yml</span><br></pre></td></tr></table></figure>
 
+<p>  version: ‘3’</p>
+<p>   services:<br>           nginx:<br>                   depends_on:<br>                           - php<br>                   image: registry.cn-hangzhou.aliyuncs.com/pxh/nginx:v1<br>                   volumes:<br>                           - /home/docker/nginx:/home/docker/nginx<br>                   restart: always</p>
+<pre><code>        ports:
 
+             - &quot;80:80&quot;
 
+        container_name: nginx1
 
-<h4 id="PHP-dockerfile"><a href="#PHP-dockerfile" class="headerlink" title="PHP dockerfile"></a>PHP dockerfile</h4><p>   <strong>使用centos镜像</strong></p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">   FROM centos</span><br><span class="line">   </span><br><span class="line">   ENV SRC_DIR /opt/php</span><br><span class="line">   ENV PHP_DIR /etc/init.d</span><br><span class="line">   ENV BUILD_TOOLS gcc automake autoconf libtool make gcc gcc-c++ glibc</span><br><span class="line">   ENV BUILD_DEPS libmcrypt-devel mhash-devel libxslt-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel</span><br><span class="line">   ENV BUILD_PHP php70w-common php70w-fpm php70w-opcache php70w-gd php70w-mysqlnd php70w-mbstring php70w-pecl-redis php70w-pecl-memcached php70w-devel php70w-xml</span><br><span class="line">   </span><br><span class="line">   WORKDIR $&#123;SRC_DIR&#125;</span><br><span class="line">   </span><br><span class="line">   RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">   RUN yum clean all</span><br><span class="line">   RUN yum repolist</span><br><span class="line">RUN yum -y install wget vim</span><br><span class="line">   RUN wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br><span class="line">RUN yum -y update</span><br><span class="line">   RUN yum -y install epel-release</span><br><span class="line">   RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</span><br><span class="line">   RUN yum -y install $&#123;BUILD_TOOLS&#125; $&#123;BUILD_DEPS&#125;</span><br><span class="line">   RUN yum -y install $&#123;BUILD_PHP&#125;</span><br><span class="line">   WORKDIR $&#123;PHP_DIR&#125;</span><br><span class="line">   ENTRYPOINT [&quot;systemctl start php-fpm&quot;] #注意 注意 注意 （使用/usr/sbin/php-fpm就好了)</span><br><span class="line">   </span><br><span class="line">   EXPOSE 9000</span><br></pre></td></tr></table></figure>
+php:
+        depends_on:
 
-<h4 id="Mysql-dockerfile"><a href="#Mysql-dockerfile" class="headerlink" title="Mysql dockerfile"></a>Mysql dockerfile</h4><p><strong>使用的是mysql镜像</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM mysql</span><br><span class="line">COPY my.cnf /etc/mysql/my.cnf</span><br></pre></td></tr></table></figure>
+             - mysql
+                   hangzhou.aliyuncs.com/pxh/php:php5
+          restart: always
+          volumes:
+               - /home/docker/nginx/www:/home/docker/nginx/www #website
+                  - /home/docker/php:/home/docker/php
+            container_name: php5
 
-<h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><ul>
-<li><p><strong>上传基础镜像centos、mysql至镜像仓库</strong></p>
-</li>
-<li><p><strong>推送你的文件上云（git push）</strong></p>
-</li>
-<li><p><strong>进入镜像仓库，添加规则</strong></p>
-<p><img src="/pxh2133/pxh2133.github/Docker%5C1560420437261.png" alt="1560420437261"></p>
-</li>
-<li><p><strong>进行构建</strong></p>
-<p>期间可能构建失败，你可以从日志中查看错误地方，修改dockerfile，重新上传并构建。</p>
-<p>这是个能让你熟悉dockerfile编写的好机会。</p>
-<h3 id="启动环境"><a href="#启动环境" class="headerlink" title="启动环境"></a>启动环境</h3><p>为了方便统一管理nginx,php,mysql的启动，我们使用docker-compose工具。我们只需要编写一个docker-compose.yml文件，然后使用docker-compose工具就可以快速启动docker容器了。之后把docker-compose.yml传输到任意一台支持docker环境的主机中就可以快速配置wordpress的运行环境。</p>
-<h4 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h4></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3&apos;</span><br><span class="line"></span><br><span class="line"> services:</span><br><span class="line">         nginx:</span><br><span class="line">                 depends_on:</span><br><span class="line">                         - php</span><br><span class="line">                 image: registry.cn-hangzhou.aliyuncs.com/pxh/nginx:v1</span><br><span class="line">                 volumes:</span><br><span class="line">                         - /home/docker/nginx:/home/docker/nginx</span><br><span class="line">                 restart: always</span><br><span class="line"></span><br><span class="line">             ports:</span><br><span class="line"></span><br><span class="line">			- &quot;80:80&quot;</span><br><span class="line"></span><br><span class="line">             container_name: nginx1</span><br><span class="line"></span><br><span class="line">     php:</span><br><span class="line">             depends_on:</span><br><span class="line"></span><br><span class="line">			- mysql</span><br><span class="line">				  hangzhou.aliyuncs.com/pxh/php:php5</span><br><span class="line">               restart: always</span><br><span class="line">               volumes:</span><br><span class="line">				 - /home/docker/nginx/www:/home/docker/nginx/www #website</span><br><span class="line">  			     - /home/docker/php:/home/docker/php</span><br><span class="line">                 container_name: php5</span><br><span class="line"></span><br><span class="line">     mysql:</span><br><span class="line">          image: registry.cn-hangzhou.aliyuncs.com/pxh/mysql:mysql</span><br><span class="line">             volumes:</span><br><span class="line"></span><br><span class="line">			 - /home/docker/mysql:/home/docker/mysql</span><br><span class="line"></span><br><span class="line">            environment:</span><br><span class="line">					 MYSQL_ROOT_PASSWORD: pxh #mysql root passwd</span><br><span class="line">            container_name: mysql1</span><br></pre></td></tr></table></figure>
+mysql:
+     image: registry.cn-hangzhou.aliyuncs.com/pxh/mysql:mysql
+        volumes:
 
-<p>   在yml文件目录下执行（加上 -d 参数可在后台运行）</p>
-<p>   <code>docker-compose up</code></p>
-<p>   然后你就可以快速地部署一个LNMP环境了！！</p>
-<p>   <u><strong>那是不可能的。</strong></u><u><strong>快乐才刚刚开始</strong></u></p>
-<h3 id="快乐的源泉"><a href="#快乐的源泉" class="headerlink" title="快乐的源泉"></a>快乐的源泉</h3><p>   执行<code>docker-compose up</code>后将会从你镜像仓库中拉取镜像创建容器</p>
-<p>   <img src="/pxh2133/pxh2133.github/Docker%5C1560430455006.png" alt="1560430455006"></p>
-<p>   （可怜我在学校的15G流量）</p>
-<p>   <strong>他来了</strong></p>
-<p>   <img src="/pxh2133/pxh2133.github/Docker%5C1560430667057.png" alt="1560430667057"></p>
-<p>   <code>ERROR: for php  Cannot start service php: oci runtime error: container_linux.go:235: starting container process caused &quot;exec: \&quot;systemctl start php-fpm\&quot;: executable file not found in $PATH&quot;</code></p>
-<p>   难道是不可以使用 <code>systemctl start php-fpm</code>？</p>
-<p>   <strong>修改PHP dockerfile，重新构建</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR $&#123;PHP_DIR&#125;</span><br><span class="line"></span><br><span class="line">ADD php-fpm ./</span><br><span class="line">chmod +x ./php-fpm</span><br><span class="line">ENTRYPOINT [&quot;./php-fpm start&quot;]</span><br><span class="line"></span><br><span class="line">EXPOSE 9000</span><br></pre></td></tr></table></figure>
+              - /home/docker/mysql:/home/docker/mysql
 
-<p>   <strong>php-fpm</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line">   #! /bin/sh</span><br><span class="line"></span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"></span><br><span class="line"># Provides:          php-fpm</span><br><span class="line"></span><br><span class="line"># Required-Start:    $remote_fs $network</span><br><span class="line"></span><br><span class="line"># Required-Stop:     $remote_fs $network</span><br><span class="line"></span><br><span class="line"># Default-Start:     2 3 4 5</span><br><span class="line"></span><br><span class="line"># Default-Stop:      0 1 6</span><br><span class="line"></span><br><span class="line"># Short-Description: starts php-fpm</span><br><span class="line"></span><br><span class="line"># Description:       starts the PHP FastCGI Process Manager daemon</span><br><span class="line"></span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line">   php_fpm_BIN=/usr/sbin/php-fpm</span><br><span class="line">php_fpm_CONF=/etc/php-fpm.conf</span><br><span class="line">   php_fpm_PID=/var/run/php-fpm/php-fpm.pid</span><br><span class="line"></span><br><span class="line">php_opts=&quot;--fpm-config $php_fpm_CONF --pid $php_fpm_PID&quot;</span><br><span class="line"></span><br><span class="line">   wait_for_pid () &#123;</span><br><span class="line">	try=0</span><br><span class="line"></span><br><span class="line">while test $try -lt 35 ; do</span><br><span class="line"></span><br><span class="line">	case &quot;$1&quot; in</span><br><span class="line"></span><br><span class="line">   			&apos;created&apos;)</span><br><span class="line">			if [ -f &quot;$2&quot; ] ; then</span><br><span class="line">   				try=&apos;&apos;</span><br><span class="line">				break</span><br><span class="line">   			fi</span><br><span class="line">			;;</span><br><span class="line"></span><br><span class="line">		&apos;removed&apos;)</span><br><span class="line"></span><br><span class="line">   			if [ ! -f &quot;$2&quot; ] ; then</span><br><span class="line">				try=&apos;&apos;</span><br><span class="line">   				break</span><br><span class="line">			fi</span><br><span class="line">   			;;</span><br><span class="line">		esac</span><br><span class="line"></span><br><span class="line">   		echo -n .</span><br><span class="line">   		try=`expr $try + 1`</span><br><span class="line">   		sleep 1</span><br><span class="line"></span><br><span class="line">   	done</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   case &quot;$1&quot; in</span><br><span class="line">   	start)</span><br><span class="line">   		echo -n &quot;Starting php-fpm &quot;</span><br><span class="line"></span><br><span class="line">   		$php_fpm_BIN --daemonize $php_opts</span><br><span class="line"></span><br><span class="line">   		if [ &quot;$?&quot; != 0 ] ; then</span><br><span class="line">   			echo &quot; failed&quot;</span><br><span class="line">   			exit 1</span><br><span class="line">   		fi</span><br><span class="line"></span><br><span class="line">   		wait_for_pid created $php_fpm_PID</span><br><span class="line"></span><br><span class="line">   		if [ -n &quot;$try&quot; ] ; then</span><br><span class="line">   			echo &quot; failed&quot;</span><br><span class="line">   			exit 1</span><br><span class="line">   		else</span><br><span class="line">   			echo &quot; done&quot;</span><br><span class="line">   		fi</span><br><span class="line">   	;;</span><br><span class="line"></span><br><span class="line">   	stop)</span><br><span class="line">   		echo -n &quot;Gracefully shutting down php-fpm &quot;</span><br><span class="line"></span><br><span class="line">   		if [ ! -r $php_fpm_PID ] ; then</span><br><span class="line">   			echo &quot;warning, no pid file found - php-fpm is not running ?&quot;</span><br><span class="line">   			exit 1</span><br><span class="line">   		fi</span><br><span class="line"></span><br><span class="line">   		kill -QUIT `cat $php_fpm_PID`</span><br><span class="line"></span><br><span class="line">   		wait_for_pid removed $php_fpm_PID</span><br><span class="line"></span><br><span class="line">   		if [ -n &quot;$try&quot; ] ; then</span><br><span class="line">   			echo &quot; failed. Use force-quit&quot;</span><br><span class="line">   			exit 1</span><br><span class="line">   		else</span><br><span class="line">   			echo &quot; done&quot;</span><br><span class="line">   		fi</span><br><span class="line">   	;;</span><br><span class="line"></span><br><span class="line">   	status)</span><br><span class="line">   		if [ ! -r $php_fpm_PID ] ; then</span><br><span class="line">   			echo &quot;php-fpm is stopped&quot;</span><br><span class="line">   			exit 0</span><br><span class="line">   		fi</span><br><span class="line"></span><br><span class="line">   		PID=`cat $php_fpm_PID`</span><br><span class="line">   		if ps -p $PID | grep -q $PID; then</span><br><span class="line">   			echo &quot;php-fpm (pid $PID) is running...&quot;</span><br><span class="line">   		else</span><br><span class="line">   			echo &quot;php-fpm dead but pid file exists&quot;</span><br><span class="line">   		fi</span><br><span class="line">   	;;</span><br><span class="line"></span><br><span class="line">   	force-quit)</span><br><span class="line">   		echo -n &quot;Terminating php-fpm &quot;</span><br><span class="line"></span><br><span class="line">   		if [ ! -r $php_fpm_PID ] ; then</span><br><span class="line">   			echo &quot;warning, no pid file found - php-fpm is not running ?&quot;</span><br><span class="line">   			exit 1</span><br><span class="line">   		fi</span><br><span class="line"></span><br><span class="line">   		kill -TERM `cat $php_fpm_PID`</span><br><span class="line"></span><br><span class="line">   		wait_for_pid removed $php_fpm_PID</span><br><span class="line"></span><br><span class="line">   		if [ -n &quot;$try&quot; ] ; then</span><br><span class="line">   			echo &quot; failed&quot;</span><br><span class="line">   			exit 1</span><br><span class="line">   		else</span><br><span class="line">   			echo &quot; done&quot;</span><br><span class="line">   		fi</span><br><span class="line">   	;;</span><br><span class="line"></span><br><span class="line">   	restart)</span><br><span class="line">   		$0 stop</span><br><span class="line">   		$0 start</span><br><span class="line">   	;;</span><br><span class="line"></span><br><span class="line">   	reload)</span><br><span class="line"></span><br><span class="line">   		echo -n &quot;Reload service php-fpm &quot;</span><br><span class="line"></span><br><span class="line">   		if [ ! -r $php_fpm_PID ] ; then</span><br><span class="line">   			echo &quot;warning, no pid file found - php-fpm is not running ?&quot;</span><br><span class="line">   			exit 1</span><br><span class="line">   		fi</span><br><span class="line"></span><br><span class="line">   		kill -USR2 `cat $php_fpm_PID`</span><br><span class="line"></span><br><span class="line">   		echo &quot; done&quot;</span><br><span class="line">   	;;</span><br><span class="line"></span><br><span class="line">   	configtest)</span><br><span class="line">   		$php_fpm_BIN -t</span><br><span class="line">   	;;</span><br><span class="line"></span><br><span class="line">   	*)</span><br><span class="line">   		echo &quot;Usage: $0 &#123;start|stop|force-quit|restart|reload|status|configtest&#125;&quot;</span><br><span class="line">   		exit 1</span><br><span class="line">   	;;</span><br><span class="line"></span><br><span class="line">   esac</span><br></pre></td></tr></table></figure>
+       environment:
+                   MYSQL_ROOT_PASSWORD: pxh #mysql root passwd
+       container_name: mysql1</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">在yml文件目录下执行（加上 -d 参数可在后台运行）</span><br><span class="line"></span><br><span class="line">`docker-compose up`</span><br><span class="line"></span><br><span class="line">然后你就可以快速地部署一个LNMP环境了！！</span><br><span class="line"></span><br><span class="line">&lt;u&gt;**那是不可能的。**&lt;/u&gt;&lt;u&gt;**快乐才刚刚开始**&lt;/u&gt;</span><br><span class="line"></span><br><span class="line">### 快乐的源泉</span><br><span class="line"></span><br><span class="line">执行`docker-compose up`后将会从你镜像仓库中拉取镜像创建容器</span><br><span class="line"></span><br><span class="line">![1560430455006](Docker\1560430455006.png)</span><br><span class="line"></span><br><span class="line">（可怜我在学校的15G流量）</span><br><span class="line"></span><br><span class="line">**他来了**</span><br><span class="line"></span><br><span class="line">![1560430667057](Docker\1560430667057.png)</span><br><span class="line"></span><br><span class="line">`ERROR: for php  Cannot start service php: oci runtime error: container_linux.go:235: starting container process caused &quot;exec: \&quot;systemctl start php-fpm\&quot;: executable file not found in $PATH&quot;`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">难道是不可以使用 `systemctl start php-fpm`？</span><br><span class="line"></span><br><span class="line">**修改PHP dockerfile，重新构建**</span><br></pre></td></tr></table></figure>
 
+<p>WORKDIR ${PHP_DIR}</p>
+<p>ADD php-fpm ./<br>chmod +x ./php-fpm<br>ENTRYPOINT [“./php-fpm start”]</p>
+<p>EXPOSE 9000</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">**php-fpm**</span><br></pre></td></tr></table></figure>
 
+<p>   #! /bin/sh</p>
+<h3 id="BEGIN-INIT-INFO"><a href="#BEGIN-INIT-INFO" class="headerlink" title="BEGIN INIT INFO"></a>BEGIN INIT INFO</h3><h1 id="Provides-php-fpm"><a href="#Provides-php-fpm" class="headerlink" title="Provides:          php-fpm"></a>Provides:          php-fpm</h1><h1 id="Required-Start-remote-fs-network"><a href="#Required-Start-remote-fs-network" class="headerlink" title="Required-Start:    $remote_fs $network"></a>Required-Start:    $remote_fs $network</h1><h1 id="Required-Stop-remote-fs-network"><a href="#Required-Stop-remote-fs-network" class="headerlink" title="Required-Stop:     $remote_fs $network"></a>Required-Stop:     $remote_fs $network</h1><h1 id="Default-Start-2-3-4-5"><a href="#Default-Start-2-3-4-5" class="headerlink" title="Default-Start:     2 3 4 5"></a>Default-Start:     2 3 4 5</h1><h1 id="Default-Stop-0-1-6"><a href="#Default-Stop-0-1-6" class="headerlink" title="Default-Stop:      0 1 6"></a>Default-Stop:      0 1 6</h1><h1 id="Short-Description-starts-php-fpm"><a href="#Short-Description-starts-php-fpm" class="headerlink" title="Short-Description: starts php-fpm"></a>Short-Description: starts php-fpm</h1><h1 id="Description-starts-the-PHP-FastCGI-Process-Manager-daemon"><a href="#Description-starts-the-PHP-FastCGI-Process-Manager-daemon" class="headerlink" title="Description:       starts the PHP FastCGI Process Manager daemon"></a>Description:       starts the PHP FastCGI Process Manager daemon</h1><h3 id="END-INIT-INFO"><a href="#END-INIT-INFO" class="headerlink" title="END INIT INFO"></a>END INIT INFO</h3><p>   php_fpm_BIN=/usr/sbin/php-fpm<br>php_fpm_CONF=/etc/php-fpm.conf<br>   php_fpm_PID=/var/run/php-fpm/php-fpm.pid</p>
+<p>php_opts=”–fpm-config $php_fpm_CONF –pid $php_fpm_PID”</p>
+<p>   wait_for_pid () {<br>    try=0</p>
+<p>while test $try -lt 35 ; do</p>
+<pre><code>case &quot;$1&quot; in
 
+           &apos;created&apos;)
+        if [ -f &quot;$2&quot; ] ; then
+               try=&apos;&apos;
+            break
+           fi
+        ;;
 
-<h4 id="再来"><a href="#再来" class="headerlink" title="再来"></a>再来</h4><p>   <img src="/pxh2133/pxh2133.github/Docker%5C1560432629109.png" alt="1560432629109"></p>
-<p>   。。。</p>
-<p>   no such file or directory? ok    那是我ADD用错了吗</p>
-<h5 id="实验环节"><a href="#实验环节" class="headerlink" title="实验环节"></a>实验环节</h5><p>   <strong>使用本地的centos镜像</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM docker.io/centos</span><br><span class="line">ADD php-fpm /etc/init.d/</span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
+    &apos;removed&apos;)
 
-<p>   <strong>构建镜像</strong></p>
-<p>   <code>docker build -t centos/test .</code></p>
-<p>   <code>docker run -it centos/test</code></p>
-<p>   <img src="/pxh2133/pxh2133.github/Docker%5C1560432862455.png" alt="1560432862455"></p>
-<p>   。。。不是有吗</p>
-<h4 id="事情没有那么简单"><a href="#事情没有那么简单" class="headerlink" title="事情没有那么简单"></a><strong>事情没有那么简单</strong></h4><ul>
-<li><p><code>docker -v</code></p>
-<p><img src="/pxh2133/pxh2133.github/Docker%5C1560433052513.png" alt="1560433052513"></p>
-<p>​        emmm版本一点点低啦。行吧，换！</p>
-</li>
-<li><p>在新的一台虚拟机中</p>
-<p><img src="/pxh2133/pxh2133.github/Docker%5C1560433437349.png" alt="1560433437349"></p>
-<p>​        <strong>当然。还是不行</strong></p>
-</li>
-</ul>
-<p>   <strong>答案：英语阅读</strong><a href="https://github.com/docker/compose/issues/4039">https://github.com/docker/compose/issues/4039</a>（希望以后再去读一遍）</p>
-<h4 id="若使用ENTRYPOINT-“-usr-sbin-nginx-php-fpm-”"><a href="#若使用ENTRYPOINT-“-usr-sbin-nginx-php-fpm-”" class="headerlink" title="若使用ENTRYPOINT [“/usr/sbin/nginx(php-fpm)”]"></a>若使用ENTRYPOINT [“/usr/sbin/nginx(php-fpm)”]</h4><p>   <img src="/pxh2133/pxh2133.github/Docker%5C1560480108248.png" alt="1560480108248"></p>
-<p>   <img src="/pxh2133/pxh2133.github/Docker%5C1560480124106.png" alt="1560480124106"></p>
-<p>   参考<a href="https://yq.aliyun.com/articles/69584" target="_blank" rel="noopener"><strong>Docker部署WordPress LNMP(Nginx PHP MySQL)环境实践</strong></a></p>
+           if [ ! -f &quot;$2&quot; ] ; then
+            try=&apos;&apos;
+               break
+        fi
+           ;;
+    esac
 
+       echo -n .
+       try=`expr $try + 1`
+       sleep 1
+
+   done</code></pre><p>   }</p>
+<p>   case “$1” in<br>       start)<br>           echo -n “Starting php-fpm “</p>
+<pre><code>    $php_fpm_BIN --daemonize $php_opts
+
+    if [ &quot;$?&quot; != 0 ] ; then
+        echo &quot; failed&quot;
+        exit 1
+    fi
+
+    wait_for_pid created $php_fpm_PID
+
+    if [ -n &quot;$try&quot; ] ; then
+        echo &quot; failed&quot;
+        exit 1
+    else
+        echo &quot; done&quot;
+    fi
+;;
+
+stop)
+    echo -n &quot;Gracefully shutting down php-fpm &quot;
+
+    if [ ! -r $php_fpm_PID ] ; then
+        echo &quot;warning, no pid file found - php-fpm is not running ?&quot;
+        exit 1
+    fi
+
+    kill -QUIT `cat $php_fpm_PID`
+
+    wait_for_pid removed $php_fpm_PID
+
+    if [ -n &quot;$try&quot; ] ; then
+        echo &quot; failed. Use force-quit&quot;
+        exit 1
+    else
+        echo &quot; done&quot;
+    fi
+;;
+
+status)
+    if [ ! -r $php_fpm_PID ] ; then
+        echo &quot;php-fpm is stopped&quot;
+        exit 0
+    fi
+
+    PID=`cat $php_fpm_PID`
+    if ps -p $PID | grep -q $PID; then
+        echo &quot;php-fpm (pid $PID) is running...&quot;
+    else
+        echo &quot;php-fpm dead but pid file exists&quot;
+    fi
+;;
+
+force-quit)
+    echo -n &quot;Terminating php-fpm &quot;
+
+    if [ ! -r $php_fpm_PID ] ; then
+        echo &quot;warning, no pid file found - php-fpm is not running ?&quot;
+        exit 1
+    fi
+
+    kill -TERM `cat $php_fpm_PID`
+
+    wait_for_pid removed $php_fpm_PID
+
+    if [ -n &quot;$try&quot; ] ; then
+        echo &quot; failed&quot;
+        exit 1
+    else
+        echo &quot; done&quot;
+    fi
+;;
+
+restart)
+    $0 stop
+    $0 start
+;;
+
+reload)
+
+    echo -n &quot;Reload service php-fpm &quot;
+
+    if [ ! -r $php_fpm_PID ] ; then
+        echo &quot;warning, no pid file found - php-fpm is not running ?&quot;
+        exit 1
+    fi
+
+    kill -USR2 `cat $php_fpm_PID`
+
+    echo &quot; done&quot;
+;;
+
+configtest)
+    $php_fpm_BIN -t
+;;
+
+*)
+    echo &quot;Usage: $0 {start|stop|force-quit|restart|reload|status|configtest}&quot;
+    exit 1
+;;</code></pre><p>   esac</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 再来</span><br><span class="line"></span><br><span class="line">![1560432629109](Docker\1560432629109.png)</span><br><span class="line"></span><br><span class="line">。。。</span><br><span class="line"></span><br><span class="line">no such file or directory? ok	那是我ADD用错了吗</span><br><span class="line"></span><br><span class="line">##### 实验环节</span><br><span class="line"></span><br><span class="line">**使用本地的centos镜像**</span><br></pre></td></tr></table></figure>
+
+<p>FROM docker.io/centos<br>ADD php-fpm /etc/init.d/<br>CMD [“/bin/bash”]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">**构建镜像**</span><br><span class="line"></span><br><span class="line">`docker build -t centos/test .`</span><br><span class="line"></span><br><span class="line">`docker run -it centos/test`</span><br><span class="line"></span><br><span class="line">![1560432862455](Docker\1560432862455.png)</span><br><span class="line"></span><br><span class="line">。。。不是有吗</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### **事情没有那么简单**</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ `docker -v`</span><br><span class="line"></span><br><span class="line">![1560433052513](Docker\1560433052513.png)</span><br><span class="line"></span><br><span class="line">​		emmm版本一点点低啦。行吧，换！</span><br><span class="line"></span><br><span class="line">+ 在新的一台虚拟机中</span><br><span class="line"></span><br><span class="line">![1560433437349](Docker\1560433437349.png)</span><br><span class="line"></span><br><span class="line">​		**当然。还是不行**</span><br><span class="line"></span><br><span class="line">**答案：英语阅读**&lt;https://github.com/docker/compose/issues/4039&gt;（希望以后再去读一遍）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 若使用ENTRYPOINT [&quot;/usr/sbin/nginx(php-fpm)&quot;]</span><br><span class="line"></span><br><span class="line">![1560480108248](Docker\1560480108248.png)</span><br><span class="line"></span><br><span class="line">![1560480124106](Docker\1560480124106.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">参考[**Docker部署WordPress LNMP(Nginx PHP MySQL)环境实践**](&lt;https://yq.aliyun.com/articles/69584&gt;)</span><br></pre></td></tr></table></figure>
       
 
       
