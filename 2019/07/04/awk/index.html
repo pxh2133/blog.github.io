@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://github.com/pxh2133">
-  <title>Docker与Docker-compose安装 | pxhblog</title>
+  <title>awk入门 | pxhblog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装docker准备工作 Docker CE 要求内核版本不低于3.10，最好升级到更新版本  卸载旧版本Docker 没有卸载干净启动新安装的Docker会失败">
-<meta name="keywords" content="docker">
+  <meta name="description" content="见过最明白的 awk入门https://blog.csdn.net/liang5603/article/details/80855386">
+<meta name="keywords" content="随笔">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker与Docker-compose安装">
-<meta property="og:url" content="https://github.com/pxh2133/2019/06/14/dockeranzh/index.html">
+<meta property="og:title" content="awk入门">
+<meta property="og:url" content="https://github.com/pxh2133/2019/07/04/awk/index.html">
 <meta property="og:site_name" content="pxhblog">
-<meta property="og:description" content="安装docker准备工作 Docker CE 要求内核版本不低于3.10，最好升级到更新版本  卸载旧版本Docker 没有卸载干净启动新安装的Docker会失败">
+<meta property="og:description" content="见过最明白的 awk入门https://blog.csdn.net/liang5603/article/details/80855386">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-14T03:31:33.779Z">
+<meta property="og:updated_time" content="2019-07-04T11:47:06.269Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker与Docker-compose安装">
-<meta name="twitter:description" content="安装docker准备工作 Docker CE 要求内核版本不低于3.10，最好升级到更新版本  卸载旧版本Docker 没有卸载干净启动新安装的Docker会失败">
+<meta name="twitter:title" content="awk入门">
+<meta name="twitter:description" content="见过最明白的 awk入门https://blog.csdn.net/liang5603/article/details/80855386">
   
     <link rel="alternative" href="/atom.xml" title="pxhblog" type="application/atom+xml">
   
@@ -137,59 +137,28 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-dockeranzh" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-awk" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Docker与Docker-compose安装
+      awk入门
     </h1>
   
 
         
-        <a href="/2019/06/14/dockeranzh/" class="archive-article-date">
-  	<time datetime="2019-06-14T02:54:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-14</time>
+        <a href="/2019/07/04/awk/" class="archive-article-date">
+  	<time datetime="2019-07-04T11:45:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
-<li><p><strong>Docker CE 要求内核版本不低于3.10，最好升级到更新版本</strong></p>
-</li>
-<li><p><strong>卸载旧版本Docker</strong></p>
-<p>没有卸载干净启动新安装的Docker会失败</p>
-<a id="more"></a>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="安装工作"><a href="#安装工作" class="headerlink" title="安装工作"></a>安装工作</h3><h4 id="yum-安装"><a href="#yum-安装" class="headerlink" title="yum 安装"></a>yum 安装</h4><ul>
-<li><p><strong>添加yum源</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>安装Docker CE</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br><span class="line">yum install docker-ce</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="使用脚本自动安装"><a href="#使用脚本自动安装" class="headerlink" title="使用脚本自动安装"></a>使用脚本自动安装</h4><ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="启动Docker-CE"><a href="#启动Docker-CE" class="headerlink" title="启动Docker CE"></a>启动Docker CE</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br><span class="line">systemctl enable docker</span><br></pre></td></tr></table></figure>
-
-<h4 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker --version</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装Docker-compose"><a href="#安装Docker-compose" class="headerlink" title="安装Docker-compose"></a>安装Docker-compose</h2><h4 id="这里使用的是compose1-13-0"><a href="#这里使用的是compose1-13-0" class="headerlink" title="这里使用的是compose1.13.0"></a>这里使用的是compose1.13.0</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -O /usr/local/bin/docker-compose https://mirrors.aliyun.com/docker-toolbox/linux/compose/1.13.0/docker-compose-Linux-x86_64</span><br><span class="line"></span><br><span class="line">chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
-
-<h4 id="测试结果-1"><a href="#测试结果-1" class="headerlink" title="测试结果"></a>测试结果</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
-
+        <p>见过最明白的</p>
+<p>awk入门<a href="https://blog.csdn.net/liang5603/article/details/80855386" target="_blank" rel="noopener">https://blog.csdn.net/liang5603/article/details/80855386</a></p>
 
       
 
@@ -203,7 +172,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
@@ -222,18 +191,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/07/04/awk/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          awk入门
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/06/13/Docker/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Docker部署LNMP环境</div>
+    <a href="/2019/06/14/dockeranzh/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker与Docker-compose安装</div>
       <i class="icon-circle-right"></i>
     </a>
   
